@@ -7,7 +7,6 @@ const AddNote = () => {
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
-    //  addStudent({ no, name });
     setNo("");
     setName("");
   };
