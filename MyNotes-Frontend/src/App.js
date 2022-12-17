@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
-import AddNotePage from "./pages/AddNotePage";
+import NotePage from "./pages/NotePage";
 function App() {
   return (
     <div className="App">
@@ -8,7 +8,7 @@ function App() {
         <Router>
           <div className="App background">
             <Routes>
-              <Route path="/" element={<AddNotePage />}></Route>
+              <Route path="/" element={<NotePage />}></Route>
             </Routes>
           </div>
         </Router>
