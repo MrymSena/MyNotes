@@ -1,20 +1,24 @@
 import { useState } from "react";
 import { Button, Card, Form } from "react-bootstrap";
+import { doRequest } from "../api/api";
+import { postNoteEndPoint } from "../api/endpoints/note";
+import { toaster, TOASTER_TYPES } from "../utils/utils";
 
-const AddNote = () => {
-  const [no, setNo] = useState("");
-  const [name, setName] = useState("");
+const AddNote = ({ reloadNotes }) => {
+  const [title, setTitle] = useState(null);
+  const [note, setNote] = useState(null);
 
   const formSubmitHandler = (e) => {
+    console.log("burda");
     e.preventDefault();
-    setNo("");
-    setName("");
+    doRequest(postNoteEndPoint({ title, note })).then((res) => {
+      reloadNotes();
+      toaster(`${title} eklendi`, TOASTER_TYPES.SUCCESS);
+    });
+    setTitle(null);
+    setNote(null);
   };
 
-  const closeFormHandler = () => {
-    setNo("");
-    setName("");
-  };
   return (
     <div className="d-flex justify-content-center">
       <Card
@@ -28,20 +32,21 @@ const AddNote = () => {
         <Card.Body>
           <Card.Title>New Note</Card.Title>
           <Form onSubmit={formSubmitHandler}>
-            <Form.Group className="mb-2" controlId="formBasicStudentNo">
+            <Form.Group className="mb-2" controlId="">
               <Form.Label>Title</Form.Label>
               <Form.Control
-                value={no}
-                onChange={(e) => setNo(e.target.value)}
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
                 type="text"
                 placeholder="Title"
               />
             </Form.Group>
-            <Form.Group className="mb-2" controlId="formBasicStudentName">
+            <Form.Group className="mb-2" controlId="formBasicNoteNote">
               <Form.Label>Note</Form.Label>
               <Form.Control
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={note ? note : ""}
+                type="text"
+                onChange={(e) => setNote(e.target.value)}
                 as="textarea"
                 rows={4}
                 placeholder="Note"
@@ -49,7 +54,11 @@ const AddNote = () => {
             </Form.Group>
 
             <div className="mt-3">
-              <Button type="submit" disabled={!(name && no)} className="me-2">
+              <Button
+                type="submit"
+                disabled={!(title && note)}
+                className="me-2"
+              >
                 Save
               </Button>
               <Button type="reset">Cancel</Button>
