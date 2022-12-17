@@ -1,6 +1,6 @@
 /**
  * @author msena
- * 12 Haz 2022
+ * 17 Ara 2022
  */
 package com.mynotes.notes.param;
 
@@ -9,14 +9,10 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
-public class NoteDto {
+@AllArgsConstructor
+public class NoteIdDto {
 	private Integer noteId;
-	private Integer userId;
-	private String title;
-	private String note;
 }
