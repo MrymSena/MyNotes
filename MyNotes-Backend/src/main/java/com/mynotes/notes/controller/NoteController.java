@@ -8,6 +8,7 @@ import java.util.List;
  */
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,11 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mynotes.notes.model.Note;
 import com.mynotes.notes.param.NoteDto;
+import com.mynotes.notes.param.NoteIdDto;
 import com.mynotes.notes.service.NoteService;;
 
-	
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController
-//@RequestMapping("myNote")
+@RequestMapping("note")
 public class NoteController {
 	
 	@Autowired
@@ -31,13 +33,14 @@ public class NoteController {
 		return noteService.saveNote(noteDto);
 	}
 	
-	@GetMapping("/getNote")
+	@GetMapping("/getNotes")
 	public List<Note> getNoteList(){
 		return noteService.getAllNoteList();
 	}
 	
-	@GetMapping("/sampleFilter")
-	public List<Note> getNoteListFromFilter(){
-		return noteService.getAllNoteList();
+	@PostMapping("/deleteNote")
+	public void deleteNote(@RequestBody NoteIdDto noteIdDto){
+		 noteService.deleteNote(noteIdDto.getNoteId());
 	}
+	 
 }
