@@ -9,11 +9,10 @@ const AddNote = ({ reloadNotes }) => {
   const [note, setNote] = useState(null);
 
   const formSubmitHandler = (e) => {
-    console.log("burda");
     e.preventDefault();
     doRequest(postNoteEndPoint({ title, note })).then((res) => {
       reloadNotes();
-      toaster(`${title} eklendi`, TOASTER_TYPES.SUCCESS);
+      toaster(`${title} is added`, TOASTER_TYPES.SUCCESS);
     });
     setTitle(null);
     setNote(null);

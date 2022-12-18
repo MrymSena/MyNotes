@@ -14,8 +14,6 @@ const NotePage = () => {
     setLoading(true);
     doRequest(getNotesEndPoint)
       .then((resData) => {
-        console.log("note list yükleme");
-        console.log(resData);
         setNoteList(resData);
       })
       .catch((err) => {})
