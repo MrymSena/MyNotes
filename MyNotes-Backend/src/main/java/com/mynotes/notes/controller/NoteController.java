@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mynotes.notes.kafka.KafkaProducer;
 import com.mynotes.notes.model.Note;
 import com.mynotes.notes.param.NoteDto;
 import com.mynotes.notes.param.NoteIdDto;
@@ -27,9 +28,13 @@ public class NoteController {
 	
 	@Autowired
 	private NoteService noteService;
+	
+	@Autowired
+	private KafkaProducer kafkaProducer;
 
 	@PostMapping("/saveNote")
 	public Note saveNote(@RequestBody NoteDto noteDto) {
+		kafkaProducer.sendMessage(noteDto.toString());
 		return noteService.saveNote(noteDto);
 	}
 	
