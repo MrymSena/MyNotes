@@ -11,10 +11,9 @@ const NoteList = ({ loading, reloadNotes, noteList }) => {
   }, []);
 
   const deleteNoteHandler = (note) => {
-    console.log(note.noteId);
     doRequest(deleteNoteEndPoint(note)).then((res) => {
       reloadNotes();
-      toaster(`${note.title} silindi`, TOASTER_TYPES.SUCCESS);
+      toaster(`${note.title} deleted`, TOASTER_TYPES.SUCCESS);
     });
   };
 
